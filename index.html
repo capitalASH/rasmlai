@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aman — Koramangala, Bangalore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #FAF4EC;
+      --surface: #F7E6CA;
+      --border:  #E8D59E;
+      --accent:  #8B7355;
+      --accent2: #C4A882;
+      --text:    #1C1208;
+      --muted:   #AD9C8E;
+      --dim:     #D9BBB0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─────────── NAV ─────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 6%;
+      background: rgba(250,244,236,.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 1rem; font-weight: 800; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.88rem; font-weight: 500; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 8px 20px; border-radius: 50px;
+      background: var(--accent); color: #fff;
+      font-size: 0.82rem; font-weight: 600; text-decoration: none;
+      transition: opacity .2s, transform .15s;
+    }
+    .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
+
+    /* ─────────── HERO ─────────── */
+    .hero {
+      min-height: 100vh; padding: 120px 6% 80px;
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,168,130,.22) 0%, transparent 70%);
+      right: -100px; top: 50%; transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 14px; border-radius: 50px;
+      background: rgba(139,115,85,.1); border: 1px solid rgba(139,115,85,.3);
+      font-size: 0.72rem; font-weight: 700; color: var(--accent2);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 36px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .6s .1s forwards;
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent2); animation: blink 2s infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; } 50% { opacity: .3; }
+    }
+    .hero h1 {
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      font-weight: 900; line-height: 1.0; letter-spacing: -3px;
+      margin-bottom: 28px;
+    }
+    .hero h1 .line {
+      display: block; overflow: hidden;
+    }
+    .hero h1 .line span {
+      display: block;
+      opacity: 0; transform: translateY(100%);
+      animation: slideUp .7s forwards;
+    }
+    .hero h1 .line:nth-child(1) span { animation-delay: .25s; }
+    .hero h1 .line:nth-child(2) span { animation-delay: .4s; }
+    .hero h1 .line:nth-child(3) span { animation-delay: .55s; }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, #8B7355, #C07850);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-sub {
+      max-width: 480px; color: var(--muted);
+      font-size: 1.05rem; line-height: 1.7; margin-bottom: 44px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .6s .75s forwards;
+    }
+    .hero-buttons {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .6s .9s forwards;
+    }
+    .btn-primary {
+      padding: 14px 30px; border-radius: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(139,115,85,.28);
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-primary:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(139,115,85,.38); }
+    .btn-secondary {
+      padding: 14px 30px; border-radius: 50px;
+      border: 1px solid var(--border); color: var(--text);
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: rgba(139,115,85,.07); }
+
+    /* ─────────── MARQUEE ─────────── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .marquee-row {
+      display: flex; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .marquee-row:last-child { border-bottom: none; }
+    .marquee-track {
+      display: flex; gap: 0;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+    .marquee-row.rev .marquee-track {
+      animation-direction: reverse;
+    }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 24px; white-space: nowrap;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--muted); letter-spacing: .3px;
+      text-transform: uppercase;
+    }
+    .marquee-item .sep {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--dim); flex-shrink: 0;
+    }
+    .marquee-item.highlight { color: var(--accent2); }
+
+    /* ─────────── NUMBERED LIST ─────────── */
+    .work-section {
+      padding: 120px 6%;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--accent2); margin-bottom: 60px;
+    }
+    .work-list { list-style: none; }
+    .work-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: start;
+      gap: 0 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0; transform: translateY(36px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .work-item.visible { opacity: 1; transform: translateY(0); }
+    .work-num {
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--muted); letter-spacing: 1px;
+      padding-top: 6px;
+    }
+    .work-body h3 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 10px; line-height: 1.1;
+    }
+    .work-body p {
+      color: var(--muted); font-size: 0.88rem; line-height: 1.65;
+      max-width: 500px;
+    }
+    .work-tag {
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--accent); padding: 6px 14px;
+      border-radius: 50px; border: 1px solid rgba(139,115,85,.3);
+      background: rgba(139,115,85,.08); white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    /* ─────────── STICKY SCROLL HEADLINE ─────────── */
+    .sticky-outer {
+      height: 280vh;
+      position: relative;
+    }
+    .sticky-inner {
+      position: sticky; top: 0;
+      height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: center;
+      padding: 0 6%;
+      overflow: hidden;
+    }
+    .sticky-word {
+      position: absolute;
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 900; letter-spacing: -4px; line-height: 1;
+      opacity: 0; transform: translateY(60px);
+      transition: opacity .5s ease, transform .5s ease;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+    .sticky-word.active {
+      opacity: 1; transform: translateY(0);
+    }
+    .sticky-word.gone {
+      opacity: 0; transform: translateY(-60px);
+    }
+    .sticky-word .sub {
+      display: block;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 400; letter-spacing: 0px;
+      color: var(--muted); margin-top: 10px;
+      font-style: italic;
+    }
+    .sticky-word.w1 { color: var(--text); }
+    .sticky-word.w2 { color: var(--accent); }
+    .sticky-word.w3 {
+      background: linear-gradient(135deg, #8B7355, #C07850);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .sticky-word.w4 { color: var(--text); font-style: italic; }
+    .sticky-progress {
+      position: absolute; right: 6%; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .sticky-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--dim); transition: background .3s, transform .3s;
+    }
+    .sticky-dot.active { background: var(--accent2); transform: scale(1.5); }
+
+    /* ─────────── MAP ─────────── */
+    .map-section {
+      padding: 120px 6%;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .map-inner { max-width: 1100px; margin: 0 auto; }
+    .map-header { margin-bottom: 48px; }
+    .map-header h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900; letter-spacing: -2px; line-height: 1;
+      margin-bottom: 14px;
+    }
+    .map-header p { color: var(--muted); max-width: 440px; line-height: 1.7; }
+    .map-wrapper {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 64px rgba(139,115,85,.18);
+      position: relative;
+    }
+    .map-wrapper iframe {
+      width: 100%; height: 480px; display: block;
+      filter: sepia(25%) saturate(0.85) brightness(1.0);
+    }
+    .map-chip {
+      position: absolute; top: 16px; left: 16px;
+      background: rgba(250,244,236,.92); backdrop-filter: blur(12px);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px 16px; font-size: 0.8rem; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .map-chip .pin-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent2); animation: blink 2s infinite;
+    }
+
+    /* ─────────── CONTACT ─────────── */
+    .contact {
+      padding: 120px 6%;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .contact h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900; letter-spacing: -2px; line-height: 1;
+      margin-bottom: 20px;
+    }
+    .contact p { color: var(--muted); line-height: 1.7; margin-bottom: 36px; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 22px; border-radius: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .contact-link:hover {
+      border-color: var(--accent);
+      background: rgba(139,115,85,.07);
+      transform: translateX(6px);
+    }
+    .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .contact-link .link-label { flex: 1; }
+    .contact-link .link-arrow { color: var(--muted); font-size: 1rem; transition: transform .2s; }
+    .contact-link:hover .link-arrow { transform: translateX(4px); }
+    .contact-right {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 40px;
+    }
+    .faq-item { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      font-size: 0.9rem; font-weight: 600; margin-bottom: 8px;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      gap: 12px;
+    }
+    .faq-q::after { content: '+'; color: var(--accent2); font-size: 1.2rem; font-weight: 400; flex-shrink: 0; }
+    .faq-a { color: var(--muted); font-size: 0.84rem; line-height: 1.65; }
+
+    /* ─────────── FOOTER ─────────── */
+    footer {
+      text-align: center; padding: 28px 6%;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.8rem;
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+
+    /* ─────────── SCROLL REVEAL ─────────── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─────────── RESPONSIVE ─────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .work-item { grid-template-columns: 50px 1fr; }
+      .work-tag { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .sticky-word { font-size: clamp(3rem, 12vw, 5rem); letter-spacing: -2px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Aman</div>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Say hi</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow"><span class="dot"></span>Based in Koramangala, Bangalore</div>
+    <h1>
+      <span class="line"><span>Hey, I'm</span></span>
+      <span class="line"><span><span class="grad">Aman.</span></span></span>
+      <span class="line"><span>I build products.</span></span>
+    </h1>
+    <p class="hero-sub">PM at a crypto exchange. I spend most of my time figuring out why users do what they do — and then trying to ship something that actually helps.</p>
+    <div class="hero-buttons">
+      <a href="#work" class="btn-primary">See my work</a>
+      <a href="#contact" class="btn-secondary">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-row">
+      <div class="marquee-track">
+        <!-- duplicated for seamless loop -->
+        <span class="marquee-item highlight">Product Management<span class="sep"></span></span>
+        <span class="marquee-item">Crypto & Futures<span class="sep"></span></span>
+        <span class="marquee-item">User Research<span class="sep"></span></span>
+        <span class="marquee-item highlight">Fintech<span class="sep"></span></span>
+        <span class="marquee-item">PRDs & Specs<span class="sep"></span></span>
+        <span class="marquee-item">Trading UX<span class="sep"></span></span>
+        <span class="marquee-item highlight">Bangalore<span class="sep"></span></span>
+        <span class="marquee-item">Data Analytics<span class="sep"></span></span>
+        <span class="marquee-item">Growth<span class="sep"></span></span>
+        <span class="marquee-item highlight">Koramangala<span class="sep"></span></span>
+        <span class="marquee-item">Feature Launches<span class="sep"></span></span>
+        <span class="marquee-item">Roadmaps<span class="sep"></span></span>
+        <!-- repeat -->
+        <span class="marquee-item highlight">Product Management<span class="sep"></span></span>
+        <span class="marquee-item">Crypto & Futures<span class="sep"></span></span>
+        <span class="marquee-item">User Research<span class="sep"></span></span>
+        <span class="marquee-item highlight">Fintech<span class="sep"></span></span>
+        <span class="marquee-item">PRDs & Specs<span class="sep"></span></span>
+        <span class="marquee-item">Trading UX<span class="sep"></span></span>
+        <span class="marquee-item highlight">Bangalore<span class="sep"></span></span>
+        <span class="marquee-item">Data Analytics<span class="sep"></span></span>
+        <span class="marquee-item">Growth<span class="sep"></span></span>
+        <span class="marquee-item highlight">Koramangala<span class="sep"></span></span>
+        <span class="marquee-item">Feature Launches<span class="sep"></span></span>
+        <span class="marquee-item">Roadmaps<span class="sep"></span></span>
+      </div>
+    </div>
+    <div class="marquee-row rev">
+      <div class="marquee-track">
+        <span class="marquee-item">Trailing SL<span class="sep"></span></span>
+        <span class="marquee-item highlight">Charts & Layouts<span class="sep"></span></span>
+        <span class="marquee-item">Order Flow<span class="sep"></span></span>
+        <span class="marquee-item">Dynamic Island<span class="sep"></span></span>
+        <span class="marquee-item highlight">Deep Links<span class="sep"></span></span>
+        <span class="marquee-item">Positions & Orders<span class="sep"></span></span>
+        <span class="marquee-item">Trade Presets<span class="sep"></span></span>
+        <span class="marquee-item highlight">A/B Testing<span class="sep"></span></span>
+        <span class="marquee-item">Sprint Planning<span class="sep"></span></span>
+        <span class="marquee-item">Stakeholder Comms<span class="sep"></span></span>
+        <span class="marquee-item highlight">CoinDCX<span class="sep"></span></span>
+        <span class="marquee-item">Okta & Analytics<span class="sep"></span></span>
+        <!-- repeat -->
+        <span class="marquee-item">Trailing SL<span class="sep"></span></span>
+        <span class="marquee-item highlight">Charts & Layouts<span class="sep"></span></span>
+        <span class="marquee-item">Order Flow<span class="sep"></span></span>
+        <span class="marquee-item">Dynamic Island<span class="sep"></span></span>
+        <span class="marquee-item highlight">Deep Links<span class="sep"></span></span>
+        <span class="marquee-item">Positions & Orders<span class="sep"></span></span>
+        <span class="marquee-item">Trade Presets<span class="sep"></span></span>
+        <span class="marquee-item highlight">A/B Testing<span class="sep"></span></span>
+        <span class="marquee-item">Sprint Planning<span class="sep"></span></span>
+        <span class="marquee-item">Stakeholder Comms<span class="sep"></span></span>
+        <span class="marquee-item highlight">CoinDCX<span class="sep"></span></span>
+        <span class="marquee-item">Okta & Analytics<span class="sep"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUMBERED WORK LIST -->
+  <section class="work-section" id="work">
+    <div class="section-label">What I do</div>
+    <ul class="work-list">
+      <li class="work-item">
+        <span class="work-num">01</span>
+        <div class="work-body">
+          <h3>Product thinking</h3>
+          <p>I spend way too long on user research before touching a PRD. That's probably a good thing — it saves a lot of pain later.</p>
+        </div>
+        <span class="work-tag">Strategy</span>
+      </li>
+      <li class="work-item">
+        <span class="work-num">02</span>
+        <div class="work-body">
+          <h3>Crypto & futures</h3>
+          <p>Futures, charts, liquidations, trailing stops — I've been deep in this space long enough to know what trips traders up and why.</p>
+        </div>
+        <span class="work-tag">Fintech</span>
+      </li>
+      <li class="work-item">
+        <span class="work-num">03</span>
+        <div class="work-body">
+          <h3>Numbers first</h3>
+          <p>I don't fully trust gut feel. If I can't measure it, I'm probably not ready to ship it. Metrics, experiments, feedback loops.</p>
+        </div>
+        <span class="work-tag">Analytics</span>
+      </li>
+      <li class="work-item">
+        <span class="work-num">04</span>
+        <div class="work-body">
+          <h3>Works with engineers</h3>
+          <p>Genuinely enjoy the back-and-forth with eng. Good products come out of honest disagreements, not slide decks.</p>
+        </div>
+        <span class="work-tag">Collaboration</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- STICKY SCROLL SECTION -->
+  <div class="sticky-outer" id="sticky-outer">
+    <div class="sticky-inner" id="sticky-inner">
+      <div class="sticky-word w1" data-index="0">
+        got a
+        <span class="sub">some thoughts on what I've learnt</span>
+      </div>
+      <div class="sticky-word w2" data-index="1">
+        hard
+        <span class="sub">problem with no clean answer</span>
+      </div>
+      <div class="sticky-word w3" data-index="2">
+        problem?
+        <span class="sub">let's figure it out together</span>
+      </div>
+      <div class="sticky-word w4" data-index="3">
+        say hi. →
+        <span class="sub">coffee in Koramangala works too</span>
+      </div>
+      <div class="sticky-progress" id="sticky-progress">
+        <div class="sticky-dot"></div>
+        <div class="sticky-dot"></div>
+        <div class="sticky-dot"></div>
+        <div class="sticky-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <section class="map-section" id="location">
+    <div class="map-inner">
+      <div class="map-header reveal">
+        <div class="section-label">Find me here</div>
+        <h2>Koramangala,<br>Bangalore.</h2>
+        <p>One of Bangalore's best neighbourhoods. Startups, food, and a decent filter coffee if you know where to look.</p>
+      </div>
+      <div class="map-wrapper reveal">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=77.6100%2C12.9200%2C77.6450%2C12.9450&layer=mapnik&marker=12.9352%2C77.6245"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Koramangala, Bangalore">
+        </iframe>
+        <div class="map-chip">
+          <span class="pin-dot"></span>
+          Koramangala, Bangalore
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-label">Get in touch</div>
+        <h2>Say hi.</h2>
+        <p>Happy to talk product, crypto, or just grab a coffee somewhere in Koramangala. No pitch decks required.</p>
+        <div class="contact-links">
+          <a href="mailto:aman@example.com" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            <span class="link-label">Email me</span>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://www.linkedin.com/in/amannsaraf/" target="_blank" rel="noopener" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            <span class="link-label">LinkedIn</span>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://github.com/amansaraf" target="_blank" rel="noopener" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+              <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+            <span class="link-label">GitHub</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right reveal">
+        <div class="section-label" style="margin-bottom:28px">Quick answers</div>
+        <div class="faq-item">
+          <div class="faq-q">What kind of PM are you?</div>
+          <div class="faq-a">Mostly fintech — crypto exchanges, trading features, futures UX. I care a lot about users who actually know what they're doing and want tools that don't get in their way.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Open to new roles?</div>
+          <div class="faq-a">Not actively looking, but I'm always happy to hear what interesting people are building. Shoot me a message.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Where are you based?</div>
+          <div class="faq-a">Koramangala, Bangalore. Been here a while. Know the best spots for coffee, padel, and a late dinner.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can we grab coffee?</div>
+          <div class="faq-a">Yes, absolutely. Drop me a message and we'll figure something out.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Aman &nbsp;·&nbsp; Made in <a href="#location">Koramangala, Bangalore</a></p>
+  </footer>
+
+  <script>
+    // ── Intersection Observer for .reveal and .work-item ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Staggered work items
+    document.querySelectorAll('.work-item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(el);
+    });
+
+    // ── Sticky scroll section ──
+    const stickyOuter = document.getElementById('sticky-outer');
+    const words       = document.querySelectorAll('.sticky-word');
+    const dots        = document.querySelectorAll('.sticky-dot');
+    let currentStep   = -1;
+
+    function updateStickyScroll() {
+      const rect     = stickyOuter.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const total    = rect.height - window.innerHeight;
+      if (scrolled < 0 || scrolled > total) return;
+
+      const progress = scrolled / total;
+      const step     = Math.min(Math.floor(progress * words.length), words.length - 1);
+
+      if (step === currentStep) return;
+      currentStep = step;
+
+      words.forEach((w, i) => {
+        w.classList.remove('active', 'gone');
+        if (i === step)       w.classList.add('active');
+        else if (i < step)    w.classList.add('gone');
+      });
+
+      dots.forEach((d, i) => d.classList.toggle('active', i === step));
+    }
+
+    window.addEventListener('scroll', updateStickyScroll, { passive: true });
+    updateStickyScroll();
+  </script>
+</body>
+</html>
